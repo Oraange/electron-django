@@ -1,0 +1,11 @@
+#videoPlayer {
+    border: 5px solid red;
+    border-radius: 30px;
+    outline: none;
+}
+
+#audioPlayer {
+    border: 5px solid red;
+    border-radius: 35px;
+    outline: none;
+}

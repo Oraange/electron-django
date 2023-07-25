@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="./renderer.js" type="module"></script>
+  </head>
+  <body>
+    <div class="notification hidden">
+      <div class="notification-modal">
+        <h2 class="modal-title"> 업데이트 안내 </h2>
+        <h2 id="version"> </h2>
+        <p class="update-message"></p>
+        <div class="updater-btn-wrapper">
+          <button id="close-button" class="btn btn-secondary hidden"> 닫기 </button>
+          <button id="restart-button" class="btn btn-primary hidden"> 재시작 </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="loading-wrapper hidden">
+      <div class="loading-container">
+        <div class="loading"></div>
+        <div id="loading-text">loading</div>
+      </div>
+    </div>
+
+    <div id="getAudioDiv">
+        <video id="videoPlayer" controls width="500px" height="300px">My Video</video>
+        <input type="file" accept="videeo/*">
+    </div>
+    <button id="btnGetAudio" type="button">음성 추출</button>
+    <p id="audio_output"></p>
+    <audio id="audioPlayer" controls>
+        <source type="audio/wav">
+    </audio>
+
+    <br><br><br>
+
+    <div id="fadeInInput">
+      <video id="videoPlayer-fade" controls width="500px" height="300px">Fade In</video>
+    </div>
+    <button id="btnFadeIn" type="button">Fade 효과</button>
+  </body>
+</html>

@@ -1,0 +1,3 @@
+publish:
+  provide: github;
+  token: {GH_TOKEN}

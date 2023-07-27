@@ -9,7 +9,9 @@ const createWindow = () => {
         height: 480,
         fullscreen: true,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, 'preload.js'),
+            nodeIntegration: true,
+            contentSecurityPolicy: "default-src '*';"
         }
     });
 
@@ -21,6 +23,12 @@ app.whenReady().then(() => {
     createWindow();
     startDjangoServer();
     autoUpdater.checkForUpdatesAndNotify();
+
+    ipcMain.on('message-from-renderer', (event, arg) => {
+        console.log(arg);
+
+        win.webContents.send('message-from-main', 'This is a message from the main process!')
+    });
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -36,7 +44,7 @@ ipcMain.on("app_version", (event) => {
 });
 
 autoUpdater.on("update-available", () => {
-    win.webContents.send("update-available");
+    win.webContents.send("update_available");
 });
 
 autoUpdater.on("update-downloaded", () => {

@@ -1,6 +1,6 @@
 {
   "name": "electron_django",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "./src/main.js",
   "repository": {
@@ -10,8 +10,47 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "build": "electron-builder --win --publish never",
-    "deploy": "electron-builder build --win --publish always"
+    "build:win": "electron-builder --win --publish never",
+    "build:osx": "electron-builder --mac --publish never",
+    "deploy:win": "npm run deploy:win32 && npm run deploy:win64",
+    "deploy:win32": "electron-builder build --win nsis:ia32 --publish always",
+    "deploy:win64": "electron-builder build --win nsis:x64 --publish always",
+    "deploy:osx": "electron-builder build --mac --publish always",
+    "deploy:osx-django": "cd python && pyinstaller --onefile manage.py"
+  },
+  "build": {
+    "productName": "Electron Django Project",
+    "appId": "com.electron-django",
+    "asar": true,
+    "mac": {
+      "target": [
+        "default"
+      ]
+    },
+    "dmg": {
+      "title": "Start Electron"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true
+    },
+    "directories": {
+      "buildResources": "./resuorces/installer/",
+      "output": "./dist/",
+      "app": "."
+    }
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +60,7 @@
     "electron-builder": "^24.6.3"
   },
   "dependencies": {
+    "dotenv": "^16.3.1",
     "electron-updater": "^6.1.1"
   }
 }

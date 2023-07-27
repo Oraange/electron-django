@@ -5,7 +5,7 @@ import ffmpeg
 
 from django.core.files.storage import FileSystemStorage
 
-from electron_django_example.settings import BASE_DIR
+from electron_django_example.settings.product import BASE_DIR
 
 
 class FileService:

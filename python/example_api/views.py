@@ -8,7 +8,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .service import FfmpegService, FileService
-from electron_django_example.settings import BASE_DIR
+from electron_django_example.settings.product import BASE_DIR
 
 
 class EdtwViewSet(viewsets.ViewSet):
@@ -16,7 +16,7 @@ class EdtwViewSet(viewsets.ViewSet):
     def get_val_from(self, request):
         input = request.GET['input']
 
-        return Response(f"input: {input}", status=status.HTTP_200_OK)
+        return Response({"input": input}, status=status.HTTP_200_OK, content_type="application/json")
 
 
 class GetAudioViewSet(viewsets.ViewSet):
@@ -32,7 +32,7 @@ class GetAudioViewSet(viewsets.ViewSet):
 
         try:
             result = self.ffmpeg_service.get_audio(video_path, audio_path)
-            self.file_service.delete_file(result)
+            self.file_service.delete_file(video_path)
             return Response({"message": "OK", "path": result}, status=status.HTTP_201_CREATED)
 
         except ffmpeg.Error:

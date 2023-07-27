@@ -2,11 +2,15 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"/>
     <title>Hello World!</title>
     <link rel="stylesheet" href="index.css">
-    <script src="./renderer.js" type="module"></script>
+    <script src="./ffmpeg.js" type="module"></script>
   </head>
   <body>
+    <div id="test">
+      <button id="testBtn" type="button">테스트 버튼</button>
+    </div>
     <div class="notification hidden">
       <div class="notification-modal">
         <h2 class="modal-title"> 업데이트 안내 </h2>

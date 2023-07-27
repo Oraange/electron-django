@@ -1,29 +1,50 @@
 const { spawn } = require('child_process');
+require('dotenv').config()
+
+let DJANGO_CHILD_PROCESS = null;
+
+const spawnDjango = () => {
+    if ( isDevelopmentEnv() ) {
+        return spawn(`python`, ['python/manage.py', 'runserver', '--noreload'], { shell: true });
+    }
+
+    console.log(`This environment is ${ process.env.NODE_ENV }`)
+    console.log(`${__dirname}`)
+    return spawn(`cd python/dist && ./manage runserver --noreload`, { shell: true });
+}
+
+const isDevelopmentEnv = () => {
+    console.log( `NODE_ENV=${ process.env.NODE_ENV }` )
+    return process.env.NODE_ENV == 'development'
+}
 
 const startDjangoServer = () => {
-    const djangoBackend = spawn(`python`, ['python/manage.py', 'runserver', '--noreload']);
+    DJANGO_CHILD_PROCESS = spawnDjango();
 
-    djangoBackend.stdout.on('data', data => {
+    // TODO: 테스트 후 삭제
+    // const djangoBackend = spawn(`python`, ['python/manage.py', 'runserver', '--noreload']);
+
+    DJANGO_CHILD_PROCESS.stdout.on('data', data => {
         console.log(`stdout:\n${data}`);
     });
 
-    djangoBackend.stderr.on('data', data => {
+    DJANGO_CHILD_PROCESS.stderr.on('data', data => {
         console.log(`stderr: ${data}`);
     });
 
-    djangoBackend.on('error', (error) => {
+    DJANGO_CHILD_PROCESS.on('error', (error) => {
         console.log(`error: ${error.message}`);
     });
 
-    djangoBackend.on('close', (code) => {
+    DJANGO_CHILD_PROCESS.on('close', (code) => {
         console.log(`child process exited with code ${code}`);
     });
 
-    djangoBackend.on('message', (message) => {
+    DJANGO_CHILD_PROCESS.on('message', (message) => {
         console.log(`message:\n${message}`);
     });
 
-    return djangoBackend;
+    return DJANGO_CHILD_PROCESS;
 }
 
 module.exports = { startDjangoServer };

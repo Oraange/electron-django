@@ -1,10 +1,19 @@
 import { ipcRenderer } from 'electron';
-import axios from 'https://cdn.jsdelivr.net/npm/axios@1.3.5/+esm';
 
 console.log('👋 This message is being logged by "renderer.js"')
 
 
 const version = document.querySelector("#version")
+
+document.addEventListener('DOMContentLoaded', () => {
+    ipcRenderer.send('message-from-renderer', 'Hello, this is a message from the renderer process!');
+
+    ipcRenderer.on('message-from-main', (event, arg) => { console.log(arg) });
+})
+
+// ipcRenderer.send('message-from-renderer', 'Hello, this is a message from the renderer process!');
+
+// ipcRenderer.on('message-from-main', (event, arg) => { console.log(arg) });
 
 ipcRenderer.send("app_version");
 ipcRenderer.on("app_version", (event, data) => {
@@ -41,60 +50,3 @@ function restartApp() {
 
 closeButton.addEventListener("click", closeNotification);
 restartButton.addEventListener("click", restartApp);
-
-
-
-
-
-const file = document.querySelector('input[type="file"]');
-
-document.addEventListener('DOMContentLoaded', () => {
-    const videoPlayer = document.getElementById('videoPlayer');
-
-    file.addEventListener('change', () => {
-        playVideo(file.files[0], videoPlayer);
-    });
-});
-
-const playVideo = (file, videoPlayer) => {
-    videoPlayer.src = URL.createObjectURL(file);
-    videoPlayer.play();
-};
-
-document.getElementById('btnGetAudio').addEventListener('click', async (e) => {
-    e.preventDefault();
-
-    if (file.files['length'] === 0) {
-        console.log("파일이 존재하지 않습니다.");
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append("file", file.files[0]);
-
-    const res = await axios.post("http://127.0.0.1:8000/get-audio", formData, {"headers": "multipart/form-data"});
-    const result = res.data.path
-
-    document.getElementById('audio_output').innerHTML = result;
-    document.getElementById('audioPlayer').src = result;
-});
-
-document.getElementById('btnFadeIn').addEventListener('click', async (e) => {
-    e.preventDefault();
-
-    if (file.files['length'] === 0) {
-        console.log("파일이 존재하지 않습니다.");
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append("file", file.files[0])
-
-    const res = await axios.post("http://127.0.0.1:8000/fade-in", formData, {"headers": "multipart/form-data"});
-    const result = res.data.path
-
-    const videoPlayer = document.getElementById('videoPlayer-fade');
-    videoPlayer.src = result
-    videoPlayer.play()
-    // playVideo(result, videoPlayer)
-})

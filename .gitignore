@@ -421,4 +421,4 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/node,python,django,visualstudiocode
 
-python/resources
+python/electron_django_example/resources

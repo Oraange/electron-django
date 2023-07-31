@@ -41,7 +41,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       # Git Checkout
@@ -57,7 +57,6 @@ jobs:
       # Build Electron Application
       - name: Build Electron Application
         run: |
-          npm i dmg-license
           npm install
           npm run build:osx
           # Add more build commands for other platforms (if needed)

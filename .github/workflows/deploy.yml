@@ -54,6 +54,10 @@ jobs:
         with:
           node-version: '16'
 
+      # Set GH_TOKEN as environment variable
+      - name: Set GH_TOKEN
+        run: echo "GH_TOKEN=${{ secrets.GH_TOKEN }}" >> $GITHUB_ENV
+
       # Build Electron Application
       - name: Build Electron Application
         run: |

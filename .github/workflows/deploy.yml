@@ -1,88 +1,54 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
-
-# name: Node.js Package
+# name: Deploy Electron Application
 
 # on:
-#   release:
-#     types: [created]
+#   push:
+#     branches:
+#       - main
 
 # jobs:
-#   build:
-#     runs-on: ubuntu-latest
+#   deploy:
+#     runs-on: macos-latest
+
 #     steps:
-#       - uses: actions/checkout@v3
-#       - uses: actions/setup-node@v3
+#       # Git Checkout
+#       - name: Checkout Repository
+#         uses: actions/checkout@v2
+
+#       # Install Dependencies
+#       - name: Install Node.js
+#         uses: actions/setup-node@v2
 #         with:
-#           node-version: 16
-#       - run: npm ci
-#       - run: npm test
+#           node-version: '16'
 
-#   publish-npm:
-#     needs: build
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#       - uses: actions/setup-node@v3
+#       # Set GH_TOKEN as environment variable
+#       - name: Set GH_TOKEN
+#         run: echo "GH_TOKEN=${{ secrets.GH_TOKEN }}" >> $GITHUB_ENV
+
+#       # Build Electron Application
+#       - name: Build Electron Application
+#         run: |
+#           npm install
+#           npm run deploy:osx
+#           npm run deploy:osx-django
+#           # Add more build commands for other platforms (if needed)
+
+#       # Deploy to Desired Location
+#       - name: Copy Artifacts
+#         run: |
+#           mkdir deploy
+#           cp -r dist/* deploy/
+#           # Add more commands to organize the artifacts in the deploy directory
+
+#       # Create Release Archive
+#       - name: Create Release Archive
+#         run: |
+#           cd deploy
+#           zip -r release.zip *
+#           # If you're deploying on Windows, use 7zip or other appropriate tool
+
+#       # Upload Release Archive
+#       - name: Upload Release Archive
+#         uses: actions/upload-artifact@v2
 #         with:
-#           node-version: 16
-#           registry-url: https://registry.npmjs.org/
-#       - run: npm ci
-#       - run: npm publish
-#         env:
-#           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-
-name: Deploy Electron Application
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  deploy:
-    runs-on: macos-latest
-
-    steps:
-      # Git Checkout
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      # Install Dependencies
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-
-      # Set GH_TOKEN as environment variable
-      - name: Set GH_TOKEN
-        run: echo "GH_TOKEN=${{ secrets.GH_TOKEN }}" >> $GITHUB_ENV
-
-      # Build Electron Application
-      - name: Build Electron Application
-        run: |
-          npm install
-          npm run deploy:osx
-          npm run deploy:osx-django
-          # Add more build commands for other platforms (if needed)
-
-      # Deploy to Desired Location
-      - name: Copy Artifacts
-        run: |
-          mkdir deploy
-          cp -r dist/* deploy/
-          # Add more commands to organize the artifacts in the deploy directory
-
-      # Create Release Archive
-      - name: Create Release Archive
-        run: |
-          cd deploy
-          zip -r release.zip *
-          # If you're deploying on Windows, use 7zip or other appropriate tool
-
-      # Upload Release Archive
-      - name: Upload Release Archive
-        uses: actions/upload-artifact@v2
-        with:
-          name: release
-          path: deploy/release.zip
+#           name: release
+#           path: deploy/release.zip

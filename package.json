@@ -16,7 +16,7 @@
     "deploy:win32": "electron-builder build --win nsis:ia32 --publish always",
     "deploy:win64": "electron-builder build --win nsis:x64 --publish always",
     "deploy:osx": "electron-builder build --mac --publish always",
-    "deploy:osx-django": "cd python && pyinstaller --onefile manage.py"
+    "deploy:osx-django": "cd python && pip install -r requirements.txt && pyinstaller --onefile manage.py"
   },
   "build": {
     "productName": "Electron Django Project",

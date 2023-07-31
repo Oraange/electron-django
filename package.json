@@ -47,7 +47,7 @@
       "createDesktopShortcut": true
     },
     "directories": {
-      "buildResources": "./resuorces/installer/",
+      "buildResources": "./resources/installer/",
       "output": "./dist/",
       "app": "."
     }

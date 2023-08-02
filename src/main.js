@@ -2,6 +2,9 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require('path');
 const { startDjangoServer } = require("./index.js");
 const { autoUpdater } = require("electron-updater");
+const treeKill = require("tree-kill");
+
+let DJANGO_CHILD_PROCESS = null;
 
 const createWindow = () => {
     const win = new BrowserWindow({
@@ -21,7 +24,7 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
     createWindow();
-    startDjangoServer();
+    DJANGO_CHILD_PROCESS = startDjangoServer();
     autoUpdater.checkForUpdatesAndNotify();
 
     ipcMain.on('message-from-renderer', (event, arg) => {
@@ -35,8 +38,13 @@ app.whenReady().then(() => {
     });
 });
 
+app.on('before-quit', async function () {
+    treeKill( DJANGO_CHILD_PROCESS.pid );
+})
+
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
+    treeKill( DJANGO_CHILD_PROCESS.pid );
 });
 
 ipcMain.on("app_version", (event) => {

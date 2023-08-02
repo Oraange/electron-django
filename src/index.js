@@ -21,9 +21,6 @@ const isDevelopmentEnv = () => {
 const startDjangoServer = () => {
     DJANGO_CHILD_PROCESS = spawnDjango();
 
-    // TODO: 테스트 후 삭제
-    // const djangoBackend = spawn(`python`, ['python/manage.py', 'runserver', '--noreload']);
-
     DJANGO_CHILD_PROCESS.stdout.on('data', data => {
         console.log(`stdout:\n${data}`);
     });

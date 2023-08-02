@@ -1,3 +1,4 @@
+import traceback
 from typing import Any
 import ffmpeg
 import os
@@ -36,7 +37,7 @@ class GetAudioViewSet(viewsets.ViewSet):
             return Response({"message": "OK", "path": result}, status=status.HTTP_201_CREATED)
 
         except ffmpeg.Error:
-            return Response({"error": "FFMPEG Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"error": "FFMPEG Error", "message": f"{traceback.format_exc()}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class FadeInOut(viewsets.ViewSet):
@@ -56,4 +57,4 @@ class FadeInOut(viewsets.ViewSet):
             return Response({"message": "OK", "path": result}, status=status.HTTP_201_CREATED)
         
         except ffmpeg.Error:
-            return Response({"error": "FFMPEG Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"error": "FFMPEG Error", "message": f"{traceback.format_exc()}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

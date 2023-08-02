@@ -28,6 +28,7 @@ jobs:
       - name: Build Electron Application
         run: |
           npm install
+          python --version
           npm run build:osx
           npm run build:osx-django
           # Add more build commands for other platforms (if needed)

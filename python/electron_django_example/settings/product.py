@@ -74,19 +74,19 @@ WSGI_APPLICATION = 'electron_django_example.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE"      : "django.db.backends.mysql",
-        "NAME"        : "electron_django",
-        "USER"        : "orange",
-        "PASSWORD"    : "qweasd123",
-        "HOST"        : "127.0.0.1",
-        "PORT"        : "3300",
-        "OPTION": {
-            "default-character-set": "utf8"
-        }
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE"      : "django.db.backends.mysql",
+#         "NAME"        : "electron_django",
+#         "USER"        : "orange",
+#         "PASSWORD"    : "qweasd123",
+#         "HOST"        : "127.0.0.1",
+#         "PORT"        : "3300",
+#         "OPTION": {
+#             "default-character-set": "utf8"
+#         }
+#     }
+# }
 
 
 # Password validation

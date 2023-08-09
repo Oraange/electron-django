@@ -10,7 +10,7 @@ const spawnDjango = () => {
 
     console.log(`This environment is ${ process.env.NODE_ENV }`)
     console.log(`${__dirname}`)
-    return spawn(`cd python/dist && ./manage runserver --noreload`, { shell: true });
+    return spawn(`cd python/dist && ./manage runserver 0.0.0.0:8000 --noreload`, { shell: true });
 }
 
 const isDevelopmentEnv = () => {

@@ -1,7 +1,6 @@
-import { ipcRenderer } from 'electron';
+const { ipcRenderer } = require('electron');
 
 console.log('👋 This message is being logged by "renderer.js"')
-
 
 const version = document.querySelector("#version")
 
@@ -10,10 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ipcRenderer.on('message-from-main', (event, arg) => { console.log(arg) });
 })
-
-// ipcRenderer.send('message-from-renderer', 'Hello, this is a message from the renderer process!');
-
-// ipcRenderer.on('message-from-main', (event, arg) => { console.log(arg) });
 
 ipcRenderer.send("app_version");
 ipcRenderer.on("app_version", (event, data) => {

@@ -3,15 +3,10 @@ import axios from 'https://cdn.jsdelivr.net/npm/axios@1.3.5/+esm';
 
 const file = document.querySelector('input[type="file"]');
 
-/////////////////////////////
 const testBtn = document.getElementById('testBtn')
 testBtn.addEventListener('click', async (e) => {
     const res = await axios.get(`http://127.0.0.1:8000/example_api/get_val_from/?input=${testBtn.innerText}`)
     const result = res.data
-
-    if (result) {
-        console.log(result.input)
-    }
 })
 
 document.addEventListener('DOMContentLoaded', () => {

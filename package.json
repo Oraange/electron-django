@@ -1,6 +1,6 @@
 {
   "name": "electron_django",
-  "version": "1.0.6 - windows",
+  "version": "1.1.0",
   "description": "",
   "main": "./src/main.js",
   "repository": {
@@ -15,9 +15,8 @@
     "build:osx-django": "cd python && pip install -r requirements.txt && pyinstaller --onefile manage.py",
     "deploy:win": "npm run deploy:win32 && npm run deploy:win64",
     "deploy:win32": "electron-builder build --win nsis:ia32 --publish always",
-    "deploy:win64": "electron-builder build --win nsis:x64 --publish always",
-    "deploy:osx": "electron-builder build --mac --publish always",
-    "__deploy:osx-django": "cd python && pip install -r requirements.txt && pyinstaller --onefile manage.py",
+    "deploy:win64": "electron-builder build --win nsis:x64",
+    "deploy:osx": "electron-builder build --mac",
     "deploy:django": "cd python && pip install -r requirements.txt && pyinstaller --onefile manage.py"
   },
   "build": {

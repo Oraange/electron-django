@@ -34,28 +34,27 @@ jobs:
         run: |
           npm install
           python --version
-          npm run build:win64
-          npm run build:osx-django
-          # Add more build commands for other platforms (if needed)
+          npm run deploy:win64
+          npm run deploy:django
 
       # Deploy to Desired Location
       - name: Copy Artifacts
         run: |
-          mkdir deploy
-          cp -r dist/* deploy/
-          cp -r python/dist/manage deploy/
+          mkdir deploy\python\dist
+          copy dist\* deploy\
+          copy python\dist\manage deploy\python\dist
           # Add more commands to organize the artifacts in the deploy directory
 
       # Create Release Archive
       - name: Create Release Archive
         run: |
           cd deploy
-          zip -r release.zip *
+          tar -czvf release-win.tar.gz *
           # If you're deploying on Windows, use 7zip or other appropriate tool
 
       # Upload Release Archive
       - name: Upload Release Archive
         uses: actions/upload-artifact@v2
         with:
-          name: release
-          path: deploy/release.zip
+          name: release-win
+          path: deploy\release-win.zip

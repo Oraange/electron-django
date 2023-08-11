@@ -42,6 +42,7 @@ jobs:
         run: |
           mkdir deploy\python\dist
           copy dist\* deploy\
+          cd
           copy python\dist\manage deploy\python\dist
           # Add more commands to organize the artifacts in the deploy directory
 

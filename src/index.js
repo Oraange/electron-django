@@ -5,12 +5,22 @@ let DJANGO_CHILD_PROCESS = null;
 
 const spawnDjango = () => {
     if ( isDevelopmentEnv() ) {
-        return spawn(`python`, ['python/manage.py', 'runserver', '--noreload'], { shell: true });
+        // mac 버전
+        // return spawn(`python`, ['python/manage.py', 'runserver', '--noreload'], { shell: true });
+
+        // win 버전
+        return spawn(`python`, ['python\\manage.py', 'runserver', '--noreload'], { shell: true });
     }
 
     console.log(`This environment is ${ process.env.NODE_ENV }`)
     console.log(`${__dirname}`)
-    return spawn(`cd python/dist && ./manage runserver 0.0.0.0:8000 --noreload`, { shell: true });
+
+    // mac 버전
+    // return spawn(`cd python/dist && ./manage runserver 0.0.0.0:8000 --noreload`, { shell: true });
+
+    // win 버전
+    return spawn('cmd.exe', ['/c', 'cd python\\dist && manage runserver 0.0.0.0:8000 --noreload'], { shell: true });
+
 }
 
 const isDevelopmentEnv = () => {

@@ -43,7 +43,7 @@ jobs:
           mkdir deploy\python\dist
           copy dist\* deploy\
           echo ============================
-          cd
+          dir
           echo ============================
           copy python\dist\manage deploy\python\dist
           # Add more commands to organize the artifacts in the deploy directory

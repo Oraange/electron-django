@@ -54,14 +54,25 @@ ipcMain.on("app_version", (event) => {
 });
 
 autoUpdater.on("checking-for-update", () => {
+    console.log('업데이트 확인 중...')
     win.webContents.send("Checking for update...");
 });
 
 autoUpdater.on("update-available", () => {
+    console.log('업데이트가 가능합니다.')
     win.webContents.send("update_available");
 });
 
+autoUpdater.on("update-not-available", () => {
+    console.log('현재 최신 버전입니다.')
+});
+
+autoUpdater.on("error", (err) => {
+    console.log('에러가 발생했습니다: ' + err)
+});
+
 autoUpdater.on("update-downloaded", () => {
+    console.log('업데이트가 완료되었습니다.');
     win.webContents.send("update_downloaded");
 });
 

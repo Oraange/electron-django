@@ -24,6 +24,12 @@ jobs:
       - name: Set GH_TOKEN
         run: echo "GH_TOKEN=${{ secrets.GH_TOKEN }}" >> $GITHUB_ENV
 
+      # Install Chocolatey and 7-Zip
+      - name: Install Chocolatey and 7-Zip
+        run: |
+          Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+          choco install 7zip -y
+
       - name: Set up Python 3.x
         uses: actions/setup-python@v2
         with:
@@ -42,9 +48,6 @@ jobs:
         run: |
           mkdir deploy\python\dist
           copy dist\* deploy\
-          echo ============================
-          dir python\dist
-          echo ============================
           copy python\dist\manage.exe deploy\python\dist
           # Add more commands to organize the artifacts in the deploy directory
 
@@ -52,7 +55,8 @@ jobs:
       - name: Create Release Archive
         run: |
           cd deploy
-          tar -czvf release-win.tar.gz *
+          7z a -tzip release-win.zip *
+          # tar -czvf release-win.tar.gz *
           # If you're deploying on Windows, use 7zip or other appropriate tool
 
       # Upload Release Archive

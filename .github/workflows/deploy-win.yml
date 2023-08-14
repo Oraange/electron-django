@@ -45,7 +45,7 @@ jobs:
           echo ============================
           dir python\dist
           echo ============================
-          copy python\dist\manage deploy\python\dist
+          copy python\dist\manage.exe deploy\python\dist
           # Add more commands to organize the artifacts in the deploy directory
 
       # Create Release Archive

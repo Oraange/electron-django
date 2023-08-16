@@ -4,6 +4,9 @@ require('dotenv').config()
 let DJANGO_CHILD_PROCESS = null;
 
 const spawnDjango = () => {
+    // TODO: client에 환경 변수 주입하는 방법 찾아보기
+    process.env.NODE_ENV = "production"
+
     if ( isDevelopmentEnv() ) {
         // mac 버전
         // return spawn(`python`, ['python/manage.py', 'runserver', '--noreload'], { shell: true });

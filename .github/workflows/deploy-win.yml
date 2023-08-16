@@ -24,6 +24,10 @@ jobs:
       - name: Set GH_TOKEN
         run: echo "GH_TOKEN=${{ secrets.GH_TOKEN }}" >> $GITHUB_ENV
 
+      # Set NODE_ENV to "production"
+      - name: Set NODE_ENV to production
+        run: echo "NODE_ENV=production" >> $GITHUB_ENV
+
       # Install Chocolatey and 7-Zip
       - name: Install Chocolatey and 7-Zip
         run: |

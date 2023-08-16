@@ -1,6 +1,7 @@
 const { ipcRenderer } = require('electron');
 
 console.log('👋 This message is being logged by "renderer.js"')
+console.log(process.env.NODE_ENV)
 
 const version = document.querySelector("#version")
 

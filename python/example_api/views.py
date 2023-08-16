@@ -29,7 +29,7 @@ class GetAudioViewSet(viewsets.ViewSet):
     def create(self, request: HttpRequest):
         file = request.FILES.get('file')
         video_path = self.file_service.save_file(file=file)
-        audio_path = f"{os.path.abspath(BASE_DIR)}/resources/{os.path.basename(video_path).split('.')[0]}.wav"
+        audio_path = os.path.abspath(f"{os.path.abspath(BASE_DIR)}/resources/{os.path.basename(video_path).split('.')[0]}.wav")
 
         try:
             result = self.ffmpeg_service.get_audio(video_path, audio_path)
@@ -50,7 +50,7 @@ class FadeInOut(viewsets.ViewSet):
     def create(self, request: HttpRequest):
         file = request.FILES.get('file')
         video_path = self.file_service.save_file(file)
-        output_path = f"{os.path.abspath(BASE_DIR)}/resources/output.mp4"
+        output_path = os.path.abspath(f"{os.path.abspath(BASE_DIR)}/resources/output.mp4")
 
         try:
             result = self.ffmpeg_service.fade_in(video_path=video_path, output_path=output_path)

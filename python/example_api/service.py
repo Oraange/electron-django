@@ -13,7 +13,7 @@ class FileService:
         self.fs = FileSystemStorage()
 
     def save_file(self, file: BinaryIO) -> str:
-        video_path = self.fs.save(f"{os.path.abspath(BASE_DIR)}/resources/{uuid4().hex}_{file.name}", file)
+        video_path = self.fs.save(os.path.abspath(f"{os.path.abspath(BASE_DIR)}/resources/{uuid4().hex}_{file.name}"), file)
 
         return video_path
     

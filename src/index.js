@@ -19,7 +19,7 @@ const spawnDjango = () => {
     // return spawn(`cd python/dist && ./manage runserver 0.0.0.0:8000 --noreload`, { shell: true });
 
     // win 버전
-    return spawn('cmd.exe', ['/c', 'cd python\\dist && manage runserver 0.0.0.0:8000 --noreload'], { shell: true });
+    return spawn('cmd.exe', ['/c', 'cd python\\dist && manage.exe runserver 0.0.0.0:8000 --noreload'], { shell: true });
 
 }
 
